@@ -61,7 +61,10 @@ const Navigation: React.FC<NavigationProps> = ({ language, onLanguageChange }) =
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className={cn(
+            "hidden md:flex items-center",
+            isRTL ? "space-x-reverse space-x-8" : "space-x-8"
+          )}>
             {navigationItems.map((item) => (
               <Link
                 key={item.href}
