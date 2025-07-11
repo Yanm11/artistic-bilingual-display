@@ -82,32 +82,78 @@ const Navigation: React.FC<NavigationProps> = ({ language, onLanguageChange }) =
             ))}
             
             {/* Language Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onLanguageChange(language === 'en' ? 'he' : 'en')}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-            >
-              <Globe className="h-4 w-4" />
-              <span className="text-sm font-medium">
-                {language === 'en' ? 'עב' : 'EN'}
-              </span>
-            </Button>
+            <div className="relative group">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-accent/50"
+              >
+                <Globe className="h-4 w-4" />
+                <span className="text-sm font-medium">
+                  {language === 'en' ? 'EN' : 'עב'}
+                </span>
+              </Button>
+              
+              {/* Dropdown */}
+              <div className="absolute top-full right-0 mt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="bg-popover border rounded-md shadow-lg py-1 min-w-[80px]">
+                  <button
+                    onClick={() => onLanguageChange('en')}
+                    className={`w-full px-3 py-2 text-sm text-left hover:bg-accent/50 transition-colors ${
+                      language === 'en' ? 'bg-accent text-accent-foreground font-medium' : 'text-muted-foreground'
+                    }`}
+                  >
+                    EN
+                  </button>
+                  <button
+                    onClick={() => onLanguageChange('he')}
+                    className={`w-full px-3 py-2 text-sm text-left hover:bg-accent/50 transition-colors ${
+                      language === 'he' ? 'bg-accent text-accent-foreground font-medium' : 'text-muted-foreground'
+                    }`}
+                  >
+                    עב
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onLanguageChange(language === 'en' ? 'he' : 'en')}
-              className="flex items-center gap-1"
-            >
-              <Globe className="h-4 w-4" />
-              <span className="text-xs">
-                {language === 'en' ? 'עב' : 'EN'}
-              </span>
-            </Button>
+            <div className="relative group">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center gap-1 hover:bg-accent/50"
+              >
+                <Globe className="h-4 w-4" />
+                <span className="text-xs">
+                  {language === 'en' ? 'EN' : 'עב'}
+                </span>
+              </Button>
+              
+              {/* Mobile Dropdown */}
+              <div className="absolute top-full right-0 mt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="bg-popover border rounded-md shadow-lg py-1 min-w-[60px]">
+                  <button
+                    onClick={() => onLanguageChange('en')}
+                    className={`w-full px-2 py-1 text-xs text-left hover:bg-accent/50 transition-colors ${
+                      language === 'en' ? 'bg-accent text-accent-foreground font-medium' : 'text-muted-foreground'
+                    }`}
+                  >
+                    EN
+                  </button>
+                  <button
+                    onClick={() => onLanguageChange('he')}
+                    className={`w-full px-2 py-1 text-xs text-left hover:bg-accent/50 transition-colors ${
+                      language === 'he' ? 'bg-accent text-accent-foreground font-medium' : 'text-muted-foreground'
+                    }`}
+                  >
+                    עב
+                  </button>
+                </div>
+              </div>
+            </div>
             
             <Button
               variant="ghost"
