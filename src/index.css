@@ -1,42 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Sophisticated Art Gallery Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Gallery color palette - elegant and minimal */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 15%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 20 14.3% 4.1%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 15%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
+
+    /* Art gallery specific colors */
+    --gallery-gold: 45 100% 51%;
+    --gallery-charcoal: 0 0% 18%;
+    --gallery-cream: 40 40% 96%;
+    --gallery-warm-gray: 30 5% 85%;
+
+    /* Elegant gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--gallery-cream)));
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsla(var(--background), 0.8) 100%);
+
+    /* Sophisticated shadows */
+    --shadow-soft: 0 2px 20px -4px hsla(var(--foreground), 0.1);
+    --shadow-medium: 0 8px 30px -6px hsla(var(--foreground), 0.15);
+    --shadow-strong: 0 20px 40px -8px hsla(var(--foreground), 0.2);
+
+    /* Animation variables */
+    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    --transition-quick: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+
+    /* Typography scale for art descriptions */
+    --font-gallery: 'Cormorant Garamond', serif;
+    --font-ui: 'Inter', sans-serif;
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +118,106 @@ All colors MUST be HSL.
   }
 }
 
+  .dark {
+    /* Dark mode optimized for art viewing */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 8%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --gallery-cream: 0 0% 15%;
+    --gallery-warm-gray: 0 0% 25%;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-[var(--font-ui)];
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-[var(--font-gallery)];
+  }
+}
+
+@layer components {
+  /* Gallery-specific utility classes */
+  .gallery-transition {
+    transition: var(--transition-smooth);
+  }
+
+  .gallery-shadow {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .gallery-shadow-hover:hover {
+    box-shadow: var(--shadow-medium);
+  }
+
+  .gallery-shadow-strong {
+    box-shadow: var(--shadow-strong);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-overlay {
+    background: var(--gradient-overlay);
+  }
+
+  /* Elegant hover effects for artwork */
+  .artwork-hover {
+    @apply gallery-transition;
+  }
+
+  .artwork-hover:hover {
+    @apply scale-[1.02] gallery-shadow-hover;
+  }
+
+  /* Typography classes */
+  .text-gallery {
+    font-family: var(--font-gallery);
+  }
+
+  .text-ui {
+    font-family: var(--font-ui);
+  }
+
+  /* Custom animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 }

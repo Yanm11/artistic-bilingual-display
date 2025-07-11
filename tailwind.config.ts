@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'gallery': ['var(--font-gallery)'],
+				'ui': ['var(--font-ui)'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,6 +65,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				'gallery': {
+					'gold': 'hsl(var(--gallery-gold))',
+					'charcoal': 'hsl(var(--gallery-charcoal))',
+					'cream': 'hsl(var(--gallery-cream))',
+					'warm-gray': 'hsl(var(--gallery-warm-gray))',
 				}
 			},
 			borderRadius: {
