@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { Artwork, Language } from '@/types/gallery';
 import { cn } from '@/lib/utils';
 
@@ -15,6 +15,12 @@ interface ArtworkModalProps {
   hasNext?: boolean;
   hasPrevious?: boolean;
 }
+
+// Helper function to check if a file is a video
+const isVideoFile = (url: string): boolean => {
+  const videoExtensions = ['.mp4', '.mov', '.webm', '.avi', '.mkv', '.flv', '.wmv'];
+  return videoExtensions.some(ext => url.toLowerCase().endsWith(ext));
+};
 
 const ArtworkModal: React.FC<ArtworkModalProps> = ({
   artwork,
@@ -33,10 +39,16 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="max-w-6xl w-full h-[90vh] p-0 gap-0"
+        className="max-w-6xl w-full h-[79vh] p-0 gap-0 md:h-[87vh] !top-[10vh] !translate-y-0 max-h-[95vh]"
       >
-        <div className="relative w-full h-full flex">
-          {/* Close button */}
+        <DialogTitle className="sr-only">
+          {artwork.title[language]}
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          {artwork.title[language]} - {artwork.medium[language]}
+        </DialogDescription>
+        <div className="relative w-full h-full flex flex-col md:flex-row overflow-hidden">
+          {/* Close button - positioned to avoid overlap */}
           <Button
             variant="ghost"
             size="sm"
@@ -46,104 +58,176 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
             <X className="h-4 w-4" />
           </Button>
 
-          {/* Navigation buttons */}
-          {hasPrevious && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onPrevious}
-              className={cn(
-                "absolute top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background/90",
-                isRTL ? "right-4" : "left-4"
+          <div className="flex flex-col md:flex-row w-full h-full">
+            {/* Media section - takes full height on mobile, flex-1 on desktop */}
+            <div className="relative flex-1 bg-muted flex items-center justify-center p-4 md:p-8 min-h-0">
+              {/* Desktop navigation buttons - positioned on image edges */}
+              {hasPrevious && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onPrevious?.();
+                  }}
+                  className={cn(
+                    "absolute top-1/2 -translate-y-1/2 z-10 bg-black/20 backdrop-blur-sm hover:bg-black/40 text-white hover:text-white border border-white/20 hover:border-white/40 hidden md:flex transition-all duration-200",
+                    isRTL ? "right-2" : "left-2"
+                  )}
+                >
+                  {isRTL ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+                </Button>
               )}
-            >
-              {isRTL ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-            </Button>
-          )}
 
-          {hasNext && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onNext}
-              className={cn(
-                "absolute top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background/90",
-                isRTL ? "left-4" : "right-4"
+              {hasNext && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onNext?.();
+                  }}
+                  className={cn(
+                    "absolute top-1/2 -translate-y-1/2 z-10 bg-black/20 backdrop-blur-sm hover:bg-black/40 text-white hover:text-white border border-white/20 hover:border-white/40 hidden md:flex transition-all duration-200",
+                    isRTL ? "left-2" : "right-2"
+                  )}
+                >
+                  {isRTL ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                </Button>
               )}
-            >
-              {isRTL ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-            </Button>
-          )}
 
-          <div className="flex w-full h-full">
-            {/* Image section */}
-            <div className="flex-1 bg-muted flex items-center justify-center p-8">
-              <img
-                src={artwork.imageUrl}
-                alt={artwork.title[language]}
-                className="max-w-full max-h-full object-contain gallery-shadow-strong"
-              />
+              {isVideoFile(artwork.imageUrl) ? (
+                <video
+                  src={artwork.imageUrl}
+                  controls
+                  className="max-w-full max-h-full object-contain gallery-shadow-strong"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                >
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <img
+                  src={artwork.imageUrl}
+                  alt={artwork.title[language]}
+                  className="max-w-full max-h-full object-contain gallery-shadow-strong"
+                  loading="eager"
+                  decoding="async"
+                />
+              )}
             </div>
 
-            {/* Information panel */}
+            {/* Information panel - full width on mobile, fixed width on desktop */}
             <div className={cn(
-              "w-96 bg-background p-8 overflow-y-auto",
+              "bg-background p-4 md:p-6 overflow-y-auto md:w-48 w-full flex items-center justify-center",
               isRTL && "text-right"
             )} dir={isRTL ? 'rtl' : 'ltr'}>
-              <div className="space-y-6">
-                <div>
-                  <h2 className="text-2xl font-gallery font-semibold text-foreground mb-2">
-                    {artwork.title[language]}
-                  </h2>
-                  <p className="text-lg text-muted-foreground font-ui">
-                    {artwork.year}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-ui font-semibold text-foreground mb-2 uppercase tracking-wider">
-                    {language === 'en' ? 'Medium' : 'חומר'}
-                  </h3>
-                  <p className="text-sm text-muted-foreground font-ui">
-                    {artwork.medium[language]}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-ui font-semibold text-foreground mb-2 uppercase tracking-wider">
-                    {language === 'en' ? 'Dimensions' : 'מידות'}
-                  </h3>
-                  <p className="text-sm text-muted-foreground font-ui">
-                    {artwork.dimensions}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-ui font-semibold text-foreground mb-2 uppercase tracking-wider">
-                    {language === 'en' ? 'Description' : 'תיאור'}
-                  </h3>
-                  <p className="text-sm text-muted-foreground font-ui leading-relaxed">
-                    {artwork.description[language]}
-                  </p>
-                </div>
-
-                {artwork.price && (
+              <div className="space-y-4 md:space-y-6 w-full flex flex-col justify-center min-h-full pb-12 md:pb-4">
+                {/* Only show title if it exists */}
+                {artwork.title[language] && artwork.title[language].trim() !== '' && (
+                  <div>
+                    <h2 className="text-xl md:text-2xl font-gallery font-semibold text-foreground mb-2">
+                      {artwork.title[language]}
+                    </h2>
+                  </div>
+                )}
+                
+                {/* Only show medium if it exists */}
+                {artwork.medium[language] && artwork.medium[language].trim() !== '' && (
                   <div>
                     <h3 className="text-sm font-ui font-semibold text-foreground mb-2 uppercase tracking-wider">
-                      {language === 'en' ? 'Price' : 'מחיר'}
+                      {language === 'en' ? 'Medium' : 'חומר'}
                     </h3>
-                    <p className="text-lg font-ui font-semibold text-primary">
-                      {artwork.price}
+                    <p className="text-sm text-muted-foreground font-ui">
+                      {artwork.medium[language]}
                     </p>
-                    {artwork.isAvailable !== false && (
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {language === 'en' ? 'Available for purchase' : 'זמין לרכישה'}
-                      </p>
-                    )}
+                  </div>
+                )}
+                
+                {/* Only show description if it exists */}
+                {artwork.description && artwork.description[language] && artwork.description[language].trim() !== '' && (
+                  <div>
+                    <h3 className="text-sm font-ui font-semibold text-foreground mb-2 uppercase tracking-wider">
+                      {language === 'en' ? 'Description' : 'תיאור'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground font-ui">
+                      {artwork.description[language]}
+                    </p>
                   </div>
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Mobile navigation buttons - positioned with bottom padding */}
+          <div className="md:hidden flex justify-between items-center absolute bottom-8 left-4 right-4 z-10">
+            {isRTL ? (
+              <>
+                {hasNext && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onNext?.();
+                    }}
+                    className="bg-background/80 backdrop-blur-sm hover:bg-black/40"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                )}
+                {hasPrevious && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onPrevious?.();
+                    }}
+                    className="bg-background/80 backdrop-blur-sm hover:bg-black/40"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                )}
+              </>
+            ) : (
+              <>
+                {hasPrevious && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onPrevious?.();
+                    }}
+                    className="bg-background/80 backdrop-blur-sm hover:bg-black/40"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                )}
+                {hasNext && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onNext?.();
+                    }}
+                    className="bg-background/80 backdrop-blur-sm hover:bg-black/40"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                )}
+              </>
+            )}
           </div>
         </div>
       </DialogContent>

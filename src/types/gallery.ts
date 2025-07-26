@@ -13,6 +13,19 @@ export interface Artist {
     en: string;
     he: string;
   };
+  secondStatement?: {
+    en: string;
+    he: string;
+  };
+  audio?: string; // Optional audio file URL
+  projectTitle: {
+    en: string;
+    he: string;
+  };
+  projectMedium: {
+    en: string;
+    he: string;
+  };
   artworks: Artwork[];
 }
 

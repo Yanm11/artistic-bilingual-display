@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ArtworkModal from '@/components/ArtworkModal';
+import AudioPlayer from '@/components/AudioPlayer';
 import { artistsData } from '@/data/artists';
 import { Artwork, Language } from '@/types/gallery';
 import { cn } from '@/lib/utils';
@@ -10,6 +11,12 @@ import { cn } from '@/lib/utils';
 interface ArtistPageProps {
   language: Language;
 }
+
+// Helper function to check if a file is a video
+const isVideoFile = (url: string): boolean => {
+  const videoExtensions = ['.mp4', '.mov', '.webm', '.avi', '.mkv', '.flv', '.wmv'];
+  return videoExtensions.some(ext => url.toLowerCase().endsWith(ext));
+};
 
 const ArtistPage: React.FC<ArtistPageProps> = ({ language }) => {
   const { artistId } = useParams<{ artistId: string }>();
@@ -90,11 +97,15 @@ const ArtistPage: React.FC<ArtistPageProps> = ({ language }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back button */}
         <div className="mb-8">
-          <Button variant="ghost" asChild className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            asChild 
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-accent/20 hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 border border-transparent hover:border-accent/30 group w-fit"
+          >
             <Link to="/gallery">
               {isRTL ? 
-                <ArrowRight className="h-4 w-4" /> : 
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" /> : 
+                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
               }
               {currentContent.backToGallery}
             </Link>
@@ -103,37 +114,51 @@ const ArtistPage: React.FC<ArtistPageProps> = ({ language }) => {
 
         {/* Artist Header */}
         <div className={cn("mb-16", isRTL && "text-right")}>
-          <h1 className="text-4xl md:text-5xl font-gallery font-semibold text-foreground mb-6 animate-fade-in-up">
-            {artist.name[language]}
-          </h1>
+          <div className="mb-6 animate-fade-in-up">
+            {/* Project Title - Bold and bigger */}
+            <h1 className="text-4xl md:text-5xl font-gallery font-bold text-foreground mb-2 ">
+              {artist.projectTitle[language]}
+            </h1>
+            
+            {/* Artist Name - Same size but not bold */}
+            {artist.projectTitle[language] && artist.projectTitle[language].trim() !== '' && (
+              <h2 className="text-4xl md:text-5xl font-gallery text-foreground mb-2">
+                {artist.name[language]}
+              </h2>
+            )}
+            
+            {/* Medium - Smaller text */}
+            {artist.projectMedium[language] && (
+              <p className="text-xl md:text-2xl font-ui text-muted-foreground whitespace-pre-line">
+                {artist.projectMedium[language]}
+              </p>
+            )}
+          </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Artist Image */}
-            <div className="lg:col-span-1 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="aspect-[3/4] overflow-hidden rounded-sm gallery-shadow">
-                <img
-                  src={artist.featuredImage}
-                  alt={artist.name[language]}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+           
 
             {/* Artist Info */}
             <div className="lg:col-span-2 space-y-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <div>
-                <p className="text-lg text-muted-foreground font-ui leading-relaxed">
-                  {artist.bio[language]}
-                </p>
-              </div>
-
-              {artist.statement && (
+              {artist.statement && artist.statement[language] && artist.statement[language].trim() !== '' && (
+                <div className={cn("flex items-start gap-4", "flex-row")}>
+                  <div className="flex-1">
+                    <p className="text-muted-foreground font-ui leading-relaxed italic">
+                      "{artist.statement[language]}" {artist.name[language]}
+                    </p>
+                  </div>
+                  {artist.audio && (
+                    <div className="flex-shrink-0">
+                      <AudioPlayer audioUrl={artist.audio} />
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              {artist.secondStatement && artist.secondStatement[language] && artist.secondStatement[language].trim() !== '' && (
                 <div>
-                  <h2 className="text-2xl font-gallery font-semibold text-foreground mb-4">
-                    {currentContent.statement}
-                  </h2>
-                  <p className="text-muted-foreground font-ui leading-relaxed italic">
-                    "{artist.statement[language]}"
+                  <p className="text-muted-foreground font-ui leading-relaxed">
+                    {artist.secondStatement[language]}
                   </p>
                 </div>
               )}
@@ -143,12 +168,12 @@ const ArtistPage: React.FC<ArtistPageProps> = ({ language }) => {
 
         {/* Artworks Section */}
         <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-          <h2 className={cn(
+          {/* <h2 className={cn(
             "text-3xl font-gallery font-semibold text-foreground mb-12",
             isRTL && "text-right"
           )}>
             {currentContent.artworks}
-          </h2>
+          </h2> */}
 
           {artist.artworks.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -161,11 +186,25 @@ const ArtistPage: React.FC<ArtistPageProps> = ({ language }) => {
                 >
                   <div className="bg-card rounded-sm overflow-hidden gallery-shadow artwork-hover">
                     <div className="aspect-[4/5] overflow-hidden">
-                      <img
-                        src={artwork.imageUrl}
-                        alt={artwork.title[language]}
-                        className="w-full h-full object-cover gallery-transition group-hover:scale-105"
-                      />
+                      {isVideoFile(artwork.imageUrl) ? (
+                        <video
+                          src={artwork.imageUrl}
+                          className="w-full h-full object-cover gallery-transition group-hover:scale-105"
+                          muted
+                          loop
+                          playsInline
+                          onMouseEnter={(e) => e.currentTarget.play()}
+                          onMouseLeave={(e) => e.currentTarget.pause()}
+                        />
+                      ) : (
+                        <img
+                          src={artwork.imageUrl}
+                          alt={artwork.title[language]}
+                          className="w-full h-full object-cover gallery-transition group-hover:scale-105"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
                     </div>
                     
                     <div className={cn("p-6", isRTL && "text-right")}>
@@ -174,14 +213,8 @@ const ArtistPage: React.FC<ArtistPageProps> = ({ language }) => {
                       </h3>
                       
                       <p className="text-sm text-muted-foreground mb-2 font-ui">
-                        {artwork.year} • {artwork.medium[language]}
+                         {artwork.medium[language]}
                       </p>
-                      
-                      {artwork.price && (
-                        <p className="text-primary font-ui font-semibold">
-                          {artwork.price}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>
