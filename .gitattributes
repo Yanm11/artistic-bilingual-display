@@ -1,3 +1,5 @@
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
 public/artists/**/MVI_8290.MP4 filter=lfs diff=lfs merge=lfs -text
 public/artists/**/נטע[[:space:]]בלוך[[:space:]]עניין[[:space:]]אישי.mov filter=lfs diff=lfs merge=lfs -text
 public/artists/**/סרטון[[:space:]]10.mp4 filter=lfs diff=lfs merge=lfs -text
