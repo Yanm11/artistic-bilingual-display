@@ -112,6 +112,9 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="author" content="Gallery of the Senate - Ben Gurion University" />
       <meta name="language" content={language} />
       
+      {/* Google Site Verification */}
+      <meta name="google-site-verification" content="Rf-DsJgVasQ7GoCCjkkrf-3d8OGiJ7ou8FgAJXi5zII" />
+      
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
       <meta property="og:url" content={currentUrl} />
