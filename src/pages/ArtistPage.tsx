@@ -7,6 +7,8 @@ import AudioPlayer from '@/components/AudioPlayer';
 import { artistsData } from '@/data/artists';
 import { Artwork, Language } from '@/types/gallery';
 import { cn } from '@/lib/utils';
+import SEO from '@/components/SEO';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 interface ArtistPageProps {
   language: Language;
@@ -94,7 +96,42 @@ const ArtistPage: React.FC<ArtistPageProps> = ({ language }) => {
 
   return (
     <div className={cn("min-h-screen pt-24 pb-16", isRTL && "rtl")} dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEO
+        title={{
+          en: `${artist.name.en} - ${artist.projectTitle?.en || 'Artworks'} | Gallery of the Senate`,
+          he: `${artist.name.he} - ${artist.projectTitle?.he || 'יצירות'} | גלרית הסנאט`
+        }}
+        description={{
+          en: `Explore the contemporary artworks of ${artist.name.en}, featuring ${artist.projectTitle?.en || 'various artworks'} ${artist.projectMedium?.en ? `in ${artist.projectMedium.en.toLowerCase()}` : ''}. Part of Ben Gurion University Art Department graduate exhibition.`,
+          he: `גלו את היצירות העכשוויות של ${artist.name.he}, הכוללות ${artist.projectTitle?.he || 'יצירות שונות'} ${artist.projectMedium?.he ? `ב${artist.projectMedium.he}` : ''}. חלק מתערוכת הבוגרות של המחלקה לאומנות באוניברסיטת בן גוריון.`
+        }}
+        keywords={{
+          en: [
+            artist.name.en,
+            artist.projectTitle?.en || '',
+            artist.projectMedium?.en || '',
+            'contemporary art',
+            'Israeli artist',
+            'art exhibition'
+          ].filter(Boolean),
+          he: [
+            artist.name.he,
+            artist.projectTitle?.he || '',
+            artist.projectMedium?.he || '',
+            'אמנות עכשווית',
+            'אמנית ישראלית',
+            'תערוכת אמנות'
+          ].filter(Boolean)
+        }}
+        language={language}
+        url={`/artist/${artist.id}`}
+        image={artist.featuredImage}
+        type="article"
+        artistName={artist.name[language]}
+        projectTitle={artist.projectTitle?.[language]}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Breadcrumbs language={language} />
         {/* Back button */}
         <div className="mb-8">
           <Button 

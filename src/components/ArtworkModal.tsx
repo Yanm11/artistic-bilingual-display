@@ -53,7 +53,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm hover:bg-background/90"
+            className="absolute top-4 right-4 z-10 bg-black/20 backdrop-blur-sm hover:bg-black/40 text-white hover:text-white border border-white/20 hover:border-white/40 transition-all duration-200"
           >
             <X className="h-4 w-4" />
           </Button>
@@ -136,26 +136,26 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
                   </div>
                 )}
                 
-                {/* Only show medium if it exists */}
-                {artwork.medium[language] && artwork.medium[language].trim() !== '' && (
+                
+                {/* Only show external link if it exists */}
+                {artwork.externalLink && (
                   <div>
-                    <h3 className="text-sm font-ui font-semibold text-foreground mb-2 uppercase tracking-wider">
-                      {language === 'en' ? 'Medium' : 'חומר'}
-                    </h3>
-                    <p className="text-sm text-muted-foreground font-ui">
-                      {artwork.medium[language]}
-                    </p>
+                    <a
+                      href={artwork.externalLink.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-sm font-ui text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline underline-offset-2 hover:underline-offset-4 transition-all duration-200"
+                    >
+                      {artwork.externalLink.text[language]}
+                    </a>
                   </div>
                 )}
                 
-                {/* Only show description if it exists */}
-                {artwork.description && artwork.description[language] && artwork.description[language].trim() !== '' && (
+                {/* Only show medium if it exists */}
+                {artwork.medium[language] && artwork.medium[language].trim() !== '' && (
                   <div>
-                    <h3 className="text-sm font-ui font-semibold text-foreground mb-2 uppercase tracking-wider">
-                      {language === 'en' ? 'Description' : 'תיאור'}
-                    </h3>
                     <p className="text-sm text-muted-foreground font-ui">
-                      {artwork.description[language]}
+                      {artwork.medium[language]}
                     </p>
                   </div>
                 )}

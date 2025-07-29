@@ -3,6 +3,8 @@ import ArtistCard from '@/components/ArtistCard';
 import { artistsData } from '@/data/artists';
 import { Language } from '@/types/gallery';
 import { cn } from '@/lib/utils';
+import SEO from '@/components/SEO';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 interface GalleryPageProps {
   language: Language;
@@ -59,8 +61,25 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ language }) => {
 
   return (
     <div className={cn("min-h-screen pt-24 pb-16", isRTL && "rtl")} dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEO
+        title={{
+          en: 'Gallery - Artists Exhibition | Ben Gurion University',
+          he: 'גלריה - תערוכת בוגרות | אוניברסיטת בן גוריון'
+        }}
+        description={{
+          en: 'Explore contemporary artworks by Ben Gurion University art graduates. Discover paintings, installations, digital art and more by emerging Israeli artists.',
+          he: 'גלו עבודות אמנות עכשוויות של בוגרות המחלקה לאומנות באוניברסיטת בן גוריון. גלו ציורים, מיצבים, אמנות דיגיטלית ועוד של אמניות ישראליות מתפתחות.'
+        }}
+        keywords={{
+          en: ['art gallery', 'contemporary art', 'emerging artists', 'Israeli art', 'university gallery'],
+          he: ['גלריית אמנות', 'אמנות עכשווית', 'אמניות מתפתחות', 'אמנות ישראלית', 'גלריית אוניברסיטה']
+        }}
+        language={language}
+        url="/gallery"
+        image="/logo.png"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+        <Breadcrumbs language={language} />
 
         {/* Artists Grid */}
         {artistsData.length > 0 ? (

@@ -187,7 +187,14 @@ export const artistsData: Artist[] = [
           he: ''
         },
         dimensions: 'Various',
-        isAvailable: true
+        isAvailable: true,
+        externalLink: {
+          url: 'https://app--almost-there-790ff2a8.base44.app/',
+          text: {
+            en: 'to the game',
+            he: 'למשחק'
+          }
+        }
       },
       {
         id: 'edenGoldstein-artwork-2',
@@ -206,7 +213,14 @@ export const artistsData: Artist[] = [
           he: ''
         },
         dimensions: 'Various',
-        isAvailable: true
+        isAvailable: true,
+        externalLink: {
+          url: 'https://gd.games/edeng21/find-the-diffrences-',
+          text: {
+            en: 'to the game',
+            he: 'למשחק'
+          }
+        }
       },
       {
         id: 'edenGoldstein-artwork-3',
@@ -225,7 +239,14 @@ export const artistsData: Artist[] = [
           he: ''
         },
         dimensions: 'Various',
-        isAvailable: true
+        isAvailable: true,
+        externalLink: {
+          url: 'https://slotmachine.lovable.app/',
+          text: {
+            en: 'to the game',
+            he: 'למשחק'
+          }
+        }
       },
       {
         id: 'edenGoldstein-artwork-4',
@@ -1065,8 +1086,8 @@ export const artistsData: Artist[] = [
       {
         id: 'shellyHanutin-artwork-2',
         title: {
-          en: 'Detail from the artwork',
-          he: 'פרט מתוך היצירה'
+          en: '',
+          he: ''
         },
         description: {
           en: '',
@@ -1084,8 +1105,8 @@ export const artistsData: Artist[] = [
       {
         id: 'shellyHanutin-artwork-3',
         title: {
-          en: 'Detail from the artwork',
-          he: 'פרט מתוך היצירה'
+          en: '',
+          he: ''
         },
         description: {
           en: '',
@@ -1103,8 +1124,8 @@ export const artistsData: Artist[] = [
       {
         id: 'shellyHanutin-artwork-4',
         title: {
-          en: 'Detail from the artwork',
-          he: 'פרט מתוך היצירה'
+          en: '',
+          he: ''
         },
         description: {
           en: '',
@@ -1122,8 +1143,8 @@ export const artistsData: Artist[] = [
       {
         id: 'shellyHanutin-artwork-5',
         title: {
-          en: 'Detail from the artwork',
-          he: 'פרט מתוך היצירה'
+          en: '',
+          he: ''
         },
         description: {
           en: '',
@@ -1141,8 +1162,8 @@ export const artistsData: Artist[] = [
       {
         id: 'shellyHanutin-artwork-6',
         title: {
-          en: 'Detail from the artwork',
-          he: 'פרט מתוך היצירה'
+          en: '',
+          he: ''
         },
         description: {
           en: '',
@@ -1160,8 +1181,8 @@ export const artistsData: Artist[] = [
       {
         id: 'shellyHanutin-artwork-7',
         title: {
-          en: 'Detail from the artwork',
-          he: 'פרט מתוך היצירה'
+          en: '',
+          he: ''
         },
         description: {
           en: '',

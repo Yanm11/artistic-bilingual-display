@@ -48,6 +48,13 @@ export interface Artwork {
   dimensions: string;
   price?: string;
   isAvailable?: boolean;
+  externalLink?: {
+    url: string;
+    text: {
+      en: string;
+      he: string;
+    };
+  };
 }
 
 export type Language = 'en' | 'he';

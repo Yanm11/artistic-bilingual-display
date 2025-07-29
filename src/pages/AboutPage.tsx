@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { generateGalleryImages, GalleryImage } from '@/data/galleryImages';
 import { useIsMobile } from '@/hooks/use-mobile';
+import SEO from '@/components/SEO';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -119,7 +121,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ language }) => {
     he: {
       title: 'עניין אישי - רגע לאמנות',
       subtitle: 'תערוכת בוגרות חטיבת יצירה, המחלקה לאמנויות 2025',
-      mainText: 'מעשה האמנות בעת מלחמה אינו מובן מאליו. זהו מעשה אמיץ של אמונה בערך החיים, בערכם של המחשבות והרגשות המפעמים.\n\nבאופן טבעי ולא מכוון אבל בהלימה למציאות, נטו סטודנטיות רבות לפורמט האינטימי ולשימוש במדימויים "מסורתיים" כגון רישום, ציור וצילום. כאילו כנגד רעם המטוסים והתותחים, כנגד כוחות ההרס והמוות, אין האמנות משתתקת, ואין מסתגרת בגבולותיה בפורמליזם עקר, אלא נסוגה, כביכול, למחוזות הנפש ומציעה באומץ ובעקשנות את פרייה הצנוע.',
+      mainText: 'מעשה האמנות בעת מלחמה אינו מובן מאליו. זהו מעשה אמיץ של אמונה בערך החיים, בערכם של המחשבות והרגשות המפעמים.\n\nבאופן טבעי ולא מכוון אבל בהלימה למציאות, נטו סטודנטיות רבות לפורמט האינטימי ולשימוש במדיומים "מסורתיים" כגון רישום, ציור וצילום. כאילו כנגד רעם המטוסים והתותחים, כנגד כוחות ההרס והמוות, אין האמנות משתתקת, ואין היא מסתגרת בגבולותיה בפורמליזם עקר, אלא נסוגה, כביכול, למחוזות הנפש ומציעה באומץ ובעקשנות את פרייה הצנוע.',
       photographer: 'צילום: גל מנור',
       participants: {
         title: 'משתתפי הקורס',
@@ -159,7 +161,21 @@ const AboutPage: React.FC<AboutPageProps> = ({ language }) => {
 
   return (
     <div className={cn("min-h-screen pt-24 pb-16", isRTL && "rtl")} dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEO
+        title={{
+          en: 'About - Gallery of the Senate | Ben Gurion University Art Department',
+          he: 'אודות - גלרית הסנאט | המחלקה לאומנות אוניברסיטת בן גוריון'
+        }}
+        description={{
+          en: 'Learn about Gallery of the Senate, the graduate exhibition of Ben Gurion University Art Department featuring contemporary works by emerging artists.',
+          he: 'למדו על גלרית הסנאט, תערוכת הבוגרות של המחלקה לאומנות באוניברסיטת בן גוריון המציגה עבודות עכשוויות של אמניות מתפתחות.'
+        }}
+        language={language}
+        url="/"
+        image="/logo.png"
+      />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Breadcrumbs language={language} />
         {/* Header */}
         <div className={cn("text-left mb-12", isRTL && "text-right")}>
           <h1 className="text-4xl md:text-5xl font-gallery font-semibold text-foreground mb-4 animate-fade-in-up">
@@ -229,7 +245,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ language }) => {
                 {currentContent.participants.artistsList.map((artist, index) => (
                   <div 
                     key={index}
-                    className="text-muted-foreground font-ui hover:text-foreground transition-colors"
+                    className="font-ui"
                   >
                     {artist}
                   </div>
@@ -237,6 +253,16 @@ const AboutPage: React.FC<AboutPageProps> = ({ language }) => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Gallery Button */}
+        <div className="mb-16 animate-fade-in-up flex justify-center" style={{ animationDelay: '0.35s' }}>
+          <Button
+            onClick={() => window.location.href = '/gallery'}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-ui font-medium rounded-lg gallery-shadow transition-all duration-300 hover:scale-105"
+          >
+            {language === 'en' ? 'To the Gallery' : 'לגלריה'}
+          </Button>
         </div>
 
         {/* Gallery Images */}
