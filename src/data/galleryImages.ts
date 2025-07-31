@@ -22,6 +22,7 @@ export const GALLERY_IMAGE_FILES = [
   'IMG_8352.JPG',
   'IMG_8359.JPG',
   'IMG_8367.JPG',
+  'image5.jpg',
 ];
 
 export const generateGalleryImages = (language: Language): GalleryImage[] => {

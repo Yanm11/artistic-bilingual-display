@@ -104,16 +104,16 @@ const SEO: React.FC<SEOProps> = ({
   const currentImage = image ? `${baseUrl}${image}` : defaultImage;
 
   return (
-    <Helmet>
+      <Helmet>
+        {/* Google Site Verification */}
+        <meta name="google-site-verification" content="Rf-DsJgVasQ7GoCCjkkrf-3d8OGiJ7ou8FgAJXi5zII" />
+        
       {/* Basic Meta Tags */}
       <title>{currentTitle}</title>
       <meta name="description" content={currentDescription} />
       <meta name="keywords" content={finalKeywords[language].join(', ')} />
       <meta name="author" content="Gallery of the Senate - Ben Gurion University" />
       <meta name="language" content={language} />
-      
-      {/* Google Site Verification */}
-      <meta name="google-site-verification" content="Rf-DsJgVasQ7GoCCjkkrf-3d8OGiJ7ou8FgAJXi5zII" />
       
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />

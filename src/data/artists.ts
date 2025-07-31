@@ -142,6 +142,25 @@ export const artistsData: Artist[] = [
         },
         dimensions: 'Various',
         isAvailable: true
+      },
+      {
+        id: 'ofryElkabetz-artwork-7',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/עופרי/image2.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
       }
     ]
   },
@@ -324,6 +343,101 @@ export const artistsData: Artist[] = [
           he: ''
         },
         imageUrl: '/artists/שקד/IMG_8277.JPG',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'shakedHaftka-artwork-2',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/שקד/image2.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'shakedHaftka-artwork-3',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/שקד/image3.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'shakedHaftka-artwork-4',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/שקד/image4.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'shakedHaftka-artwork-5',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/שקד/image5.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'shakedHaftka-artwork-6',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/שקד/image6.jpg',
         year: 2024,
         medium: {
           en: '',
@@ -2283,7 +2397,85 @@ export const artistsData: Artist[] = [
         },
         dimensions: 'Various',
         isAvailable: true
+      },
+      {
+        id: 'liorBraunstein-artwork-2',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/ליאור/image2.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'liorBraunstein-artwork-3',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/ליאור/image3.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'liorBraunstein-artwork-4',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/ליאור/image4.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
+      },
+      {
+        id: 'liorBraunstein-artwork-5',
+        title: {
+          en: '',
+          he: ''
+        },
+        description: {
+          en: '',
+          he: ''
+        },
+        imageUrl: '/artists/ליאור/image5.jpg',
+        year: 2024,
+        medium: {
+          en: '',
+          he: ''
+        },
+        dimensions: 'Various',
+        isAvailable: true
       }
+
+      
     ]
   },
   // Neta Bloch
