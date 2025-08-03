@@ -202,8 +202,8 @@ export const artistsData: Artist[] = [
         imageUrl: '/artists/עדן/Image_1.jpg',
         year: 2024,
         medium: {
-          en: '',
-          he: ''
+          en: '* It is recommended to open the links from the mobile device',
+          he: '* מומלץ לפתוח את הלינק מהמכשיר הנייד'
         },
         dimensions: 'Various',
         isAvailable: true,
@@ -228,8 +228,8 @@ export const artistsData: Artist[] = [
         imageUrl: '/artists/עדן/Image_2.jpg',
         year: 2024,
         medium: {
-          en: '',
-          he: ''
+          en: '* It is recommended to open the links from the mobile device',
+          he: '* מומלץ לפתוח את הלינק מהמכשיר הנייד'
         },
         dimensions: 'Various',
         isAvailable: true,
@@ -254,8 +254,8 @@ export const artistsData: Artist[] = [
         imageUrl: '/artists/עדן/Image_3.jpg',
         year: 2024,
         medium: {
-          en: '',
-          he: ''
+          en: '* It is recommended to open the links from the mobile device',
+          he: '* מומלץ לפתוח את הלינק מהמכשיר הנייד'
         },
         dimensions: 'Various',
         isAvailable: true,
